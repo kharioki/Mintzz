@@ -8,7 +8,7 @@ export function ItemCard() {
     <div className="rounded-md drop-shadow-md relative">
       <div className="rounded-md relative items-center">
         <div>
-          <div className="absolute w-full h-48 top-20 opacity-0 hover:opacity-100 hover:bg-opacity-50">
+          <div className="absolute w-full h-60 top-24 opacity-0 hover:opacity-100 hover:bg-opacity-50">
             <Button />
           </div>
           <div className="absolute right-2 top-2 ">
@@ -18,7 +18,7 @@ export function ItemCard() {
             <Timer />
           </div>
         </div>
-        <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg" className="w-full h-60 md:h-60 rounded-md bottom-2" />
+        <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg" className="w-full h-64 md:h-72 rounded-md bottom-2" />
       </div>
       <div className="py-4">
         <div className="flex flex-row items-center text-gray-400">
@@ -30,9 +30,12 @@ export function ItemCard() {
         <div className="font-semibold text-sm mb-2 text-left cursor-pointer">
           <a href="#">Item Name</a>
         </div>
-        <div className="flex flex-row text-sm mb-2 justify-between items-center border-b border-gray-100 py-2">
+        <div className="flex flex-row text-sm mb-2 justify-between items-center border-b border-gray-200 py-2">
           <div className="flex flex-row justify-between items-center text-left space-x-1">
-            <img src="https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg" className="w-10 h-10 border border-green-200 rounded-md" />
+            <img
+              src="https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg"
+              className="w-10 h-10 border border-gray-50 rounded-md"
+            />
             <div className="ml-2">
               <p className="text-xs text-left">Creator name</p>
               <p className="text-xs text-gray-400 font-light text-left">Creator</p>
@@ -40,7 +43,7 @@ export function ItemCard() {
           </div>
           <Price price={4.35} symbol="CELO" />
         </div>
-        <div className="flex flex-row text-sm mb-2 items-center py-2">
+        <div className="flex flex-row text-sm mb-2 items-center py-1">
           <AvatarGroup />
           <p className="text-xs text-gray-400 ml-1">placed bid</p>
         </div>

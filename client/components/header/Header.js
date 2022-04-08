@@ -7,7 +7,7 @@ export function Header() {
     <nav className="flex justify-between items-center w-full border-b border-primary py-2 px-4">
       <Link href="/">
         <div className="flex items-center h-8 md:h-12 p-2 md:p-4 px-2 md:px-6 border-r-2 border-dashed border-primary">
-          <p className="font-bold font-mono text-primary text-xl md:text-2xl ">
+          <p className="font-light font-mono text-primary text-xl md:text-2xl ">
             Mintzz
           </p>
         </div>

@@ -12,11 +12,13 @@ export default function Home() {
       </Head>
 
       <main className="flex flex-col items-center w-full flex-1 px-2 sm:px-12 xl:px-24 sm:py-6 text-center">
-        <div className="lg:flex lg:items-center lg:justify-between">
+        <div className="w-full text-left mb-2 border-b border-gray-100 p-2">
           <h2 className="text-xl font-bold leading-7 text-gray-900 sm:text-2xl sm:truncate">Mint and Auction NFTS</h2>
-
+          <p className="text-sm leading-6 text-gray-500">
+            Mint, bid and auction NFTs and pay with Celo.
+          </p>
         </div>
-        <div className="w-full mb-2 md:px-4 lg:px-6">
+        <div className="w-full px-4 mb-2 lg:px-6">
           <div className="grid md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-6 mt-4">
             <ItemCard />
             <ItemCard />
