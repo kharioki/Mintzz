@@ -16,7 +16,7 @@ export function Wallet() {
       </button>
 
       {toggleDropdown && (
-        <div className="origin-top-right absolute right-0 w-56 rounded-sm shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+        <div className="origin-top-right absolute right-0 w-56 rounded-sm shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
           <div className="py-1 divide-y divide-gray-100 shadow" role="none">
             <a href="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-2">Wallet address</a>
             <div className="py-1">
