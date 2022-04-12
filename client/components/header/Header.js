@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { CreateNew } from '../buttons';
 import { ConnectWallet, Wallet } from '../wallet';
 
-export function Header({ address, avatar, showUser, showNFT }) {
+export function Header({ connect, address, disconnect, showUser, showNFT }) {
   return (
     <nav className="flex justify-between items-center w-full bg-bgColor border-b border-pink-400 py-2 px-4">
       <Link href="/">
@@ -13,7 +13,7 @@ export function Header({ address, avatar, showUser, showNFT }) {
         </div>
       </Link>
       <div className="flex flex-row items-center justify-center space-x-2">
-        {!address ? <ConnectWallet /> : <Wallet avatar={avatar} address={address} showUser={showUser} />}
+        {!address ? <ConnectWallet connect={connect} /> : <Wallet address={address} disconnect={disconnect} showUser={showUser} />}
         <CreateNew handleShow={showNFT} />
       </div>
     </nav>
