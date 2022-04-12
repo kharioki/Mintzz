@@ -1,10 +1,10 @@
-export function ConnectWallet({ handleShow }) {
+export function ConnectWallet() {
   return (
     <button
-      className="text-primary bg-white border border-primary hover:bg-primary hover:text-white focus:outline-none font-medium rounded-full text-xs sm:text:sm p-2 text-center"
-      onClick={() => handleShow()}
+      className="text-primary bg-white border border-primary hover:bg-primary hover:text-white rounded-full text-xs sm:text:sm p-2 text-center"
+      onClick={() => { }}
     >
-      <span className="ml-2 hidden sm:block text-xs sm:text-sm font-mono">Connect Wallet</span>
+      <span className="text-xs sm:text-sm font-mono">Connect Wallet</span>
     </button>
   )
 }

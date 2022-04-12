@@ -5,7 +5,7 @@ import { ItemCard } from '../components/cards'
 import { Footer } from '../components/footer'
 import { CreateNFTModal, BidModal, CreateUserModal } from '../components/modals'
 
-export default function Home({ showUserModal, handleCloseUserModal, showNFTModal, handleCloseNFTModal }) {
+export default function Home({ showUserModal, handleCloseUserModal, showNFTModal, handleCloseNFTModal, address }) {
   const [showBidModal, setShowBidModal] = useState(false);
   const [bidPrice, setBidPrice] = useState(0);
 
@@ -43,7 +43,7 @@ export default function Home({ showUserModal, handleCloseUserModal, showNFTModal
         </div>
         {showNFTModal && <CreateNFTModal handleClose={handleCloseNFTModal} />}
         {showBidModal && <BidModal current={bidPrice} handleClose={handleCloseBidModal} />}
-        {showUserModal && <CreateUserModal handleClose={handleCloseUserModal} />}
+        {showUserModal && <CreateUserModal address={address} handleClose={handleCloseUserModal} />}
 
       </main>
 

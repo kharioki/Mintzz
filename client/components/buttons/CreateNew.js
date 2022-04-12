@@ -1,7 +1,7 @@
 export function CreateNew({ handleShow }) {
   return (
     <button
-      className="text-white bg-primary hover:bg-pink-700 focus:ring-4 focus:outline-none focus:ring-pink-200 font-medium rounded-full text-xs sm:text:sm p-2 text-center inline-flex items-center"
+      className="text-white bg-primary hover:bg-white hover:text-primary focus:outline-none font-medium rounded-full text-xs sm:text:sm p-2 text-center inline-flex items-center shadow-md"
       onClick={() => handleShow()}
     >
       <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

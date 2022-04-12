@@ -1,6 +1,6 @@
 import useForm from '../../hooks/useForm';
 
-export function CreateUserModal({ address, avatar, handleClose }) {
+export function CreateUserModal({ address, handleClose }) {
   const { inputs, handleChange, clearForm } = useForm({
     alias: '',
   });
@@ -19,7 +19,7 @@ export function CreateUserModal({ address, avatar, handleClose }) {
 
   return (
     <div className="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-      <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+      <div className="flex items-end justify-center min-h-screen pt-2 px-2 pb-20 text-center sm:block sm:p-0">
 
         <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
 
@@ -47,17 +47,6 @@ export function CreateUserModal({ address, avatar, handleClose }) {
               <div className='flex flex-col'>
                 <div className="mt-2 sm:mt-0">
                   <form>
-                    <label htmlFor="avatar" className="formLabel">Avatar</label>
-                    <input
-                      className="formInput"
-                      id="avatar"
-                      name="avatar"
-                      type="file"
-                      value={avatar}
-                      onChange={() => { }}
-                      required
-                    />
-
                     <label htmlFor="address" className="formLabel">Address</label>
                     <input
                       className="formInput"
@@ -86,14 +75,14 @@ export function CreateUserModal({ address, avatar, handleClose }) {
             <div className="px-2 py-3 sm:px-4 flex">
               <button
                 type="submit"
-                className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-primary text-xs font-medium text-white hover:bg-primary sm:ml-3 sm:w-auto sm:text-sm"
+                className="w-full justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-primary text-xs font-medium text-white hover:bg-primary sm:ml-3 sm:w-auto sm:text-sm"
                 onClick={() => handleSubmit()}
               >
                 Create User
               </button>
               <button
                 type="button"
-                className="w-full inline-flex justify-center rounded-md border border-red-500 shadow-sm px-4 py-2 bg-white text-xs ml-2 font-medium text-red-500 hover:bg-gray-100 sm:ml-3 sm:w-auto sm:text-sm"
+                className="w-full justify-center rounded-md border border-red-500 shadow-sm px-4 py-2 bg-white text-xs ml-2 font-medium text-red-500 hover:bg-gray-100 sm:ml-3 sm:w-auto sm:text-sm"
                 onClick={() => clearForm()}
               >
                 Clear

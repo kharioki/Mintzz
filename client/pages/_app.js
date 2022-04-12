@@ -6,6 +6,8 @@ import '../styles/globals.css'
 function MyApp({ Component, pageProps }) {
   const [showUserModal, setShowUserModal] = useState(false);
   const [showNFTModal, setShowNFTModal] = useState(false);
+  const [address, setAddress] = useState('0x0000000000000000000000000000000000000000');
+  const [avatar, setAvatar] = useState('https://cdn.pixabay.com/photo/2022/03/23/02/50/skeleton-7086311_960_720.png');
 
   const handleShowUserModal = () => {
     setShowUserModal(true)
@@ -25,6 +27,8 @@ function MyApp({ Component, pageProps }) {
 
   const allProps = {
     ...pageProps,
+    address,
+    avatar,
     handleCloseUserModal,
     showUserModal,
     handleCloseNFTModal,
@@ -33,7 +37,12 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <>
-      <Header showUser={handleShowUserModal} showNFT={handleShowNFTModal} />
+      <Header
+        address={address}
+        avatar={avatar}
+        showUser={handleShowUserModal}
+        showNFT={handleShowNFTModal}
+      />
       <Component {...allProps} />
     </>
   )

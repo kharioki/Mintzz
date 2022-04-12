@@ -1,7 +1,7 @@
 export function Favorite({ liked, setLiked }) {
   return (
     <button
-      className="items-center text-primary bg-white rounded-full text-sm p-2 shadow-md"
+      className="items-center text-primary bg-white rounded-full text-sm p-2 shadow-md shadow-pink-200"
       onClick={() => setLiked(!liked)}
     >
       {liked ? (
