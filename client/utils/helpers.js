@@ -11,3 +11,7 @@ export const formatBigNumber = (num) => {
   if (!num) return
   return num.shiftedBy(-ERC20_DECIMALS).toFixed(2);
 }
+
+export const userExists = (users, address) => {
+  return users.find(user => user.address === address)
+}

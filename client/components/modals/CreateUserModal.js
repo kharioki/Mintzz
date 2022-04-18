@@ -1,20 +1,34 @@
+import { useMutation } from '@apollo/client';
+
 import useForm from '../../hooks/useForm';
+import { CREATE_USER } from '../../apollo/mutations';
+import { GET_USERS } from '../../apollo/queries'
 
 export function CreateUserModal({ address, handleClose }) {
   const { inputs, handleChange, clearForm } = useForm({
     alias: '',
+    address
   });
 
-  const handleSubmit = () => {
-    console.log("inputs", inputs);
-    // const vals = {
-    //   ...inputs,
-    //   address,
-    //   avatar,
-    // }
+  const [createUser, { loading: creatingUser, error: createUserError }] = useMutation(CREATE_USER, {
+    variables: {
+      address,
+      alias: inputs.alias,
+    },
+    refetchQueries: [{ query: GET_USERS }]
+  });
 
-    // submit form
-    // clearForm();
+  const handleSubmit = async () => {
+    console.log("inputs", inputs);
+    // call the mutation
+    await createUser();
+    if (creatingUser) console.log('Creating user...', creatingUser)
+    if (createUserError) console.log('Error creating user', createUserError)
+
+    // clear form
+    clearForm();
+    // close modal
+    handleClose();
   }
 
   return (

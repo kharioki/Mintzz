@@ -48,7 +48,7 @@ export function ItemCard({ showBidModal, setBidPrice }) {
             </div>
           </div>
           <div className="flex">
-            <Price price={4.35} symbol="CELO" />
+            <Price price={4.35} symbol="cUSD" />
           </div>
         </div>
         <div className="flex flex-row text-sm mb-2 justify-between items-center py-1 w-full">

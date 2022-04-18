@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
-import Jazzicon from "@metamask/jazzicon";
+import { useState } from 'react';
+import Jazzicon from 'react-jazzicon'
 
 import { truncateAddress, formatBigNumber } from '../../utils/helpers';
 import { useBalance } from '../../hooks/useBalance';
@@ -9,17 +9,6 @@ export function Wallet({ address, disconnect, showUser }) {
 
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
-  const ref = useRef();
-
-  useEffect(() => {
-    if (address && ref.current) {
-      ref.current.innerHTML = "";
-      ref.current.appendChild(
-        Jazzicon(36, parseInt(address.slice(2, 10), 16))
-      );
-    }
-  }, [address]);
-
   return (
     <div className="relative inline-block text-left">
       <button
@@ -28,12 +17,18 @@ export function Wallet({ address, disconnect, showUser }) {
         onClick={() => setToggleDropdown(!toggleDropdown)}
       >
         <div className="flex py-1 items-center">
-          <div ref={ref} className="w-10 h-10 rounded-full mr-2" />
-          <p className='text-xs'>{truncateAddress(address)}</p>
+          <div className="w-10 h-10 rounded-full mr-2">
+            {address && <Jazzicon diameter={36} seed={address} />}
+          </div>
+          <div>
+            <p className='text-xs'>{truncateAddress(address)}</p>
+          </div>
         </div>
-        <svg className="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-        </svg>
+        <div className="ml-2">
+          <svg className="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
       </button>
 
       {toggleDropdown && (

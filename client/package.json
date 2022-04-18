@@ -29,7 +29,9 @@
     "mongoose": "^6.2.10",
     "next": "12.1.4",
     "react": "18.0.0",
-    "react-dom": "18.0.0"
+    "react-dom": "18.0.0",
+    "react-hot-toast": "^2.2.0",
+    "react-jazzicon": "^1.0.3"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.0",

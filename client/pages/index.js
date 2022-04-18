@@ -1,16 +1,31 @@
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
-import { useContractKit } from "@celo-tools/use-contractkit";
-import { ContractKitProvider, Alfajores, NetworkNames } from "@celo-tools/use-contractkit";
+import { useContractKit, ContractKitProvider, Alfajores, NetworkNames } from "@celo-tools/use-contractkit";
 import '@celo-tools/use-contractkit/lib/styles.css';
+import { ApolloClient, InMemoryCache, useQuery, ApolloProvider } from '@apollo/client';
 
 import { ItemCard } from '../components/cards'
 import { Footer } from '../components/footer'
 import { Header } from '../components/header'
 import { CreateNFTModal, BidModal, CreateUserModal } from '../components/modals'
+import { GET_USERS } from '../apollo/queries'
+import { userExists } from '../utils/helpers';
+
+const URL = process.env.NODE_ENV === 'production' ? 'http://localhost:3000/api/graphql' : 'http://localhost:3000/api/graphql';
+
+const client = new ApolloClient({
+  uri: URL,
+  cache: new InMemoryCache(),
+  name: 'Mintzz',
+  version: '1.0',
+});
 
 function App() {
   const { address, connect, destroy } = useContractKit();
+
+  const { data: users } = useQuery(GET_USERS);
+
+  console.log('users', users)
 
   const [showUserModal, setShowUserModal] = useState(false);
   const [showNFTModal, setShowNFTModal] = useState(false);
@@ -42,8 +57,10 @@ function App() {
   }
 
   useEffect(() => {
-    if (address) {
-      handleShowUserModal()
+    if (users) {
+      if (address && !userExists(users.users, address)) {
+        handleShowUserModal()
+      }
     }
   }, [address])
 
@@ -51,7 +68,7 @@ function App() {
     <div className="flex flex-1 flex-col min-h-screen font-mono bg-bgColor">
       <Head>
         <title>Mintzz</title>
-        <meta name="description" content="NFT minter and auction on Celo" />
+        <meta name="description" content="NFT minter and auction on Celo stable coins" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -67,7 +84,7 @@ function App() {
         <div className="w-full max-w-6xl  text-left mb-2 border-b border-gray-100 p-2">
           <h2 className="text-xl font-bold leading-7 text-gray-900 sm:text-2xl sm:truncate">Mint and Auction NFTS</h2>
           <p className="text-sm leading-6 text-gray-500">
-            Mint, bid and auction NFTs and pay with Celo.
+            Mint, bid and auction NFTs and pay with Celo stable coins.
           </p>
         </div>
         <div className="w-full max-w-6xl  px-4 mb-2 lg:px-6">
@@ -108,7 +125,9 @@ export default function Home() {
         url: "https://example.com",
       }}
     >
-      <App />
+      <ApolloProvider client={client}>
+        <App />
+      </ApolloProvider>
     </ContractKitProvider>
   )
 }

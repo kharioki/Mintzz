@@ -1,3 +1,5 @@
+import BigNumber from "bignumber.js";
+
 import useForm from '../../hooks/useForm';
 
 export function CreateNFTModal({ handleClose }) {
@@ -77,7 +79,7 @@ export function CreateNFTModal({ handleClose }) {
                       onChange={handleChange}
                     ></textarea>
 
-                    <label htmlFor="price" className="formLabel">Price</label>
+                    <label htmlFor="price" className="formLabel">Price in cUSD</label>
                     <input
                       className="formInput"
                       id="price"
