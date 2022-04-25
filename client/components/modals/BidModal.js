@@ -1,19 +1,25 @@
-import useForm from '../../hooks/useForm';
+import { useForm } from '../../hooks';
 
-export function BidModal({ current, handleClose }) {
-  const { inputs, handleChange, clearForm } = useForm({
-    price: 0,
+export function BidModal({ current, itemId, handleClose, create }) {
+  const { inputs, handleChange, clearForm, resetForm } = useForm({
+    price: current,
   });
 
   const handleSubmit = () => {
-    console.log("inputs", inputs);
-    // const vals = {
-    //   ...inputs,
-    //   price: new BigNumber(inputs.price).shiftedBy(ERC20_DECIMALS).toString(),
-    // }
+    // console.log("inputs", inputs);
+    const vals = {
+      ...inputs,
+      itemId
+    }
 
-    // submit form
-    // clearForm();
+    // handle create
+    create(vals);
+
+    // close modal
+    handleClose();
+
+    // clear form
+    resetForm();
   }
 
   return (
@@ -60,6 +66,8 @@ export function BidModal({ current, handleClose }) {
                       className="formInput"
                       id="price"
                       name="price"
+                      step="0.01"
+                      min={current}
                       type="number"
                       value={inputs.price}
                       onChange={handleChange}

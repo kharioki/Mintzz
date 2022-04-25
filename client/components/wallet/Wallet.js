@@ -2,12 +2,13 @@ import { useState } from 'react';
 import Jazzicon from 'react-jazzicon'
 
 import { truncateAddress, formatBigNumber } from '../../utils/helpers';
-import { useBalance } from '../../hooks/useBalance';
+import { useBalance } from '../../hooks';
 
 export function Wallet({ address, disconnect, showUser }) {
   const { balance, getBalance } = useBalance();
 
   const [toggleDropdown, setToggleDropdown] = useState(false);
+  const truncatedAddress = address ? truncateAddress(address) : '';
 
   return (
     <div className="relative inline-block text-left">
@@ -16,12 +17,12 @@ export function Wallet({ address, disconnect, showUser }) {
         className="inline-flex items-center text-secondary bg-white border border-primary rounded-md shadow-md"
         onClick={() => setToggleDropdown(!toggleDropdown)}
       >
-        <div className="flex py-1 items-center">
-          <div className="w-10 h-10 rounded-full mr-2">
-            {address && <Jazzicon diameter={36} seed={address} />}
+        <div className="flex py-1 px-1 items-center">
+          <div className="w-8 h-8 rounded-full mr-2 mt-1">
+            <Jazzicon size={36} seed={address} />
           </div>
           <div>
-            <p className='text-xs'>{truncateAddress(address)}</p>
+            <p className='text-xs'>{truncatedAddress}</p>
           </div>
         </div>
         <div className="ml-2">

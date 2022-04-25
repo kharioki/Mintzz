@@ -1,14 +1,19 @@
-export function AvatarGroup() {
+import Jazzicon from 'react-jazzicon';
+
+export function AvatarGroup({ bids }) {
+  // slice(0, 2) - get the first 2 bids
+  const arr = bids.slice(0, 2);
+  const totalBids = bids.length;
+  const plus = totalBids > 2 ? `+${totalBids - 2}` : '';
+
   return (
     <div className="flex">
-      <img
-        src="https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg"
-        className="w-8 h-8 rounded-full border border-gray-100"
-      />
-      <img
-        src="https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg"
-        className="w-8 h-8 rounded-full -ml-3 shadow-md border border-gray-100"
-      />
+      {arr.map((bid, i) => (
+        <div key={i} className="w-6 h-6 rounded-full even:-ml-3">
+          <Jazzicon diameter={24} seed={bid.bidder} />
+        </div>
+      ))}
+      <p className="text-xs text-lightText ml-1 mt-1">{plus} placed bid</p>
     </div>
   )
 }

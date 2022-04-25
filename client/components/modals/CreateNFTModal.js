@@ -1,29 +1,32 @@
 import BigNumber from "bignumber.js";
 
-import useForm from '../../hooks/useForm';
+import { useForm } from '../../hooks';
+import { ERC20_DECIMALS } from "../../utils/helpers";
 
-export function CreateNFTModal({ handleClose }) {
-  const { inputs, handleChange, clearForm } = useForm({
+export function CreateNFTModal({ create, address, handleClose }) {
+  const { inputs, handleChange, uploadToIpfs, clearForm, resetForm } = useForm({
     image: '',
     name: '',
     description: '',
-    price: 0,
+    price: 0.01,
   });
 
-  const handleUploadImageToIPFS = async () => {
-    // logic
-    handleChange()
-  }
-
   const handleSubmit = () => {
-    console.log("inputs", inputs);
-    // const vals = {
-    //   ...inputs,
-    //   price: new BigNumber(inputs.price).shiftedBy(ERC20_DECIMALS).toString(),
-    // }
+    // console.log("inputs", inputs);
+    const vals = {
+      ...inputs,
+      owner: address,
+      price: new BigNumber(inputs.price).shiftedBy(ERC20_DECIMALS).toString(),
+    }
 
-    // submit form
-    // clearForm();
+    // handle create
+    create(vals);
+
+    // close modal
+    handleClose();
+
+    // reset form
+    resetForm();
   }
 
   return (
@@ -85,6 +88,8 @@ export function CreateNFTModal({ handleClose }) {
                       id="price"
                       name="price"
                       type="number"
+                      step="0.01"
+                      min="0"
                       value={inputs.price}
                       onChange={handleChange}
                       required
@@ -97,7 +102,7 @@ export function CreateNFTModal({ handleClose }) {
                       name="image"
                       type="file"
                       placeholder="NFT Image"
-                      onChange={() => { }}
+                      onChange={uploadToIpfs}
                       required
                     />
                   </form>

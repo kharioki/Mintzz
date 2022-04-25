@@ -17,3 +17,37 @@ export const GET_USER = gql`
     }
   }
 `;
+
+export const GET_NFT_ITEMS = gql`
+  query {
+    getNftItems {
+      nftIndex
+      owner
+      creator
+      creatorAlias
+      price
+      currentBid
+      createdAt
+    }
+  }
+`;
+
+export const GET_BIDS = gql`
+  query {
+    getBids {
+      bidder
+      bidAmount
+      itemId
+      createdAt
+    }
+  }
+`;
+
+export const GET_REACTIONS = gql`
+  query {
+    getReactions {
+      nftId
+      userAddress
+    }
+  }
+`;

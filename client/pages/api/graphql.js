@@ -20,60 +20,65 @@ const typeDefs = gql`
   }
 
   type NftItem {
-    id: ID!
-    nftAddress: String
+    nftIndex: Int
     owner: String
     creator: String
     creatorAlias: String
     price: Float
     currentBid: Float
-    bids: [Bid]
     createdAt: Date
     updatedAt: Date
   }
 
   input NftItemInput {
-    nftAddress: String
+    nftIndex: Int
     owner: String
     creator: String
     creatorAlias: String
     price: Float
     currentBid: Float
-    bids: [BidInput]
     createdAt: Date
     updatedAt: Date
   }
 
   type Bid {
     bidder: String
-    amount: Float
+    bidAmount: Float
     createdAt: Date
-    item: NftItem
+    itemId: Int
   }
 
   input BidInput {
     bidder: String
-    amount: Float                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+    bidAmount: Float                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
     createdAt: Date
-    item: NftItemInput
+    itemId: Int
+  }
+
+  type Reaction {
+    nftId: Int
+    userAddress: String
   }
 
   type Query {
     users: [User!]!
     getUser(address: String): User
     getNftItems: [NftItem]
-    getNftItem(nftAddress: String): NftItem
+    getNftItem(nftIndex: String): NftItem
+    getBids: [Bid]
+    getReactions: [Reaction]
   }
 
   type Mutation {
     createUser(address: String, alias: String): User
     createNftItem(input: NftItemInput): NftItem
-    getNftItem(nftAddress: String): NftItem
-    updateNftItem(id: ID, input: NftItemInput): NftItem
-    deleteNftItem(id: ID): NftItem
+    updateNftItem(nftIndex: Int, input: NftItemInput): NftItem
+    deleteNftItem(nftIndex: Int): NftItem
     createBid(input: BidInput): Bid
-    updateBid(id: ID, input: BidInput): Bid
-    deleteBid(id: ID): Bid
+    updateBid(id: String, input: BidInput): Bid
+    deleteBid(id: String): Bid
+    createReaction(nftId: Int, userAddress: String): Reaction
+    deleteReaction(nftId: Int, userAddress: String): Reaction
   }
 `;
 
@@ -110,6 +115,18 @@ const resolvers = {
       return context.db
         .collection('nftItems')
         .findOne({ nftAddress })
+    },
+    getBids(_, args, context) {
+      return context.db
+        .collection('bids')
+        .find()
+        .toArray()
+    },
+    getReactions(_, args, context) {
+      return context.db
+        .collection('reactions')
+        .find()
+        .toArray()
     }
   },
   Mutation: {
@@ -124,6 +141,48 @@ const resolvers = {
         .collection('nftItems')
         .insertOne(input)
         .then(result => result.insertedId)
+    },
+    updateNftItem(_, { nftIndex, input }, context) {
+      return context.db
+        .collection('nftItems')
+        .updateOne({ nftIndex }, { $set: input })
+        .then(result => result.modifiedCount)
+    },
+    deleteNftItem(_, { nftIndex }, context) {
+      return context.db
+        .collection('nftItems')
+        .deleteOne({ nftIndex })
+        .then(result => result.deletedCount)
+    },
+    createBid(_, { input }, context) {
+      return context.db
+        .collection('bids')
+        .insertOne(input)
+        .then(result => result.insertedId)
+    },
+    updateBid(_, { id, input }, context) {
+      return context.db
+        .collection('bids')
+        .updateOne({ id }, { $set: input })
+        .then(result => result.modifiedCount)
+    },
+    deleteBid(_, { id }, context) {
+      return context.db
+        .collection('bids')
+        .deleteOne({ id })
+        .then(result => result.deletedCount)
+    },
+    createReaction(_, { nftId, userAddress }, context) {
+      return context.db
+        .collection('reactions')
+        .insertOne({ nftId, userAddress })
+        .then(result => result.insertedId)
+    },
+    deleteReaction(_, { nftId, userAddress }, context) {
+      return context.db
+        .collection('reactions')
+        .deleteOne({ nftId, userAddress })
+        .then(result => result.deletedCount)
     }
   }
 };
@@ -141,7 +200,7 @@ const apolloServer = new ApolloServer({
   schema,
   context: async () => {
     if (!db) {
-      const uri = process.env.MONGO_URL || 'mongodb://localhost:27017/graphql-playground';
+      const uri = process.env.MONGO_URL1 || 'mongodb://localhost:27017/graphql-playground';
       const client = await MongoClient.connect(uri, { useNewUrlParser: true });
       db = client.db();
     }
